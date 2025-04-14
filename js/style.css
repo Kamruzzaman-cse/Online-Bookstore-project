@@ -1,0 +1,147 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("images/download15.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+    text-shadow: 1px 1px 3px #000;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#bookList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+}
+
+.book {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.book img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.book h3 {
+    margin: 10px 0 5px;
+}
+
+.book p {
+    margin: 4px 0;
+}
+
+.book button {
+    margin-top: 8px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #00cc66;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.book button:hover {
+    background-color: #00a655;
+}
+
+.book input {
+    margin-top: 8px;
+    padding: 5px;
+    width: 50px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+#cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: right;
+    box-shadow: 0 0 10px #000;
+}
+
+#cart h2 {
+    margin: 0 0 10px;
+}
+
+#cart p {
+    margin: 5px 0;
+}
+
+.availability-message {
+    margin-top: 10px;
+    color: yellow;
+}
+
+/* Login Page Styles */
+#loginPage {
+    background-image: url("images/download51.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+.login-container input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+.login-container button {
+    width: 80%;
+    padding: 10px;
+    background-color: #00cc66;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #00a655;
+}

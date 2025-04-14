@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("images/download15.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            color: white;
+            text-shadow: 1px 1px 3px #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #bookList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .book {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .book img {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .book h3 {
+            margin: 10px 0 5px;
+        }
+
+        .book p {
+            margin: 4px 0;
+        }
+
+        .book button {
+            margin-top: 8px;
+            padding: 8px 16px;
+            border: none;
+            background-color: #00cc66;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .book button:hover {
+            background-color: #00a655;
+        }
+
+        .book input {
+            margin-top: 8px;
+            padding: 5px;
+            width: 50px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: right;
+            box-shadow: 0 0 10px #000;
+        }
+
+        #cart h2 {
+            margin: 0 0 10px;
+        }
+
+        #cart p {
+            margin: 5px 0;
+        }
+
+        /* Login Page Styles */
+        #loginPage {
+            background-image: url("images/download51.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .login-container input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .login-container button {
+            width: 80%;
+            padding: 10px;
+            background-color: #00cc66;
+            color: white;
+            border: none;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #00a655;
+        }
+
+        /* Search Box */
+        #searchBox {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #searchBox input {
+            padding: 8px;
+            border-radius: 5px;
+            width: 200px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Page Section -->
+    <div id="loginPage">
+        <div class="login-container">
+            <h2>Login to Online Bookstore</h2>
+            <form onsubmit="return validateLogin()">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Bookstore Section -->
+    <div id="mainContent" style="display:none;">
+        <h1>Welcome to the Online Bookstore</h1>
+
+        <!-- Search Box -->
+        <div id="searchBox">
+            <input type="text" id="searchInput" placeholder="Search by Book ID" onkeyup="searchBook()">
+        </div>
+
+        <div id="bookList"></div>
+
+        <div id="cart">
+            <h2>🛒 Cart</h2>
+            <p>Total Items: <span id="cartCount">0</span></p>
+            <p>Total Price: ৳<span id="cartTotal">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Validate Login Function
+        function validateLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "amit111" && password === "amit111") {
+                document.getElementById("loginPage").style.display = "none"; // Hide login page
+                document.getElementById("mainContent").style.display = "block"; // Show main bookstore content
+                return false; // Prevent form submission
+            } else {
+                alert("Invalid username or password!");
+                return false;
+            }
+        }
+
+        const books = [
+            { filename: "download1", name: "Introduction to Computer Science", author: "Parry Donham", price: 200, bookId: 2301, stock: 50 },
+            { filename: "download2", name: "IndoBangla | Handbook of Computer Science & IT", author: "Arihant Experts", price: 220, bookId: 2302, stock: 60 },
+            { filename: "download3", name: "The History of Bangladesh", author: "Md.Mominul Haque", price: 250, bookId: 2303, stock: 70 },
+            { filename: "download4", name: "আমার বাংলা বই,৫ম শ্রেণি", author: "NCTB", price: 180, bookId: 2304, stock: 40 },
+            { filename: "download5", name: "আমার বাংলা বই,৩য় শ্রেণি", author: "Author 5", price: 300, bookId: 2305, stock: 30 },
+            { filename: "download6", name: "Textbook Computer Science With Python", author: "V K Pandey", price: 150, bookId: 2306, stock: 80 },
+            { filename: "download7", name: "HSC English", author: "Saifur Rahman Khan", price: 275, bookId: 2307, stock: 45 },
+            { filename: "download8", name: "আজ আমি কোথায় যাবো", author: "হুমায়ূন আহমেদ", price: 350, bookId: 2308, stock: 100 },
+            { filename: "download9", name: "বৃষ্টি বিলাশ", author: "হুমায়ূন আহমেদ", price: 400, bookId: 2309, stock: 55 },
+            { filename: "download10", name: "আমিই মিসির আলি", author: "হুমায়ূন আহমেদ", price: 450, bookId: 2310, stock: 60 },
+            { filename: "download11", name: "আমার শত্রু আমি", author: "মাহমুদ বিন নুর", price: 500, bookId: 2311, stock: 90 },
+            { filename: "download12", name: "মিসির আলি অমনিবাস", author: "হুমায়ূন আহমেদ", price: 600, bookId: 2312, stock: 30 },
+            { filename: "download13", name: "আমি মানুষ", author: "সরদার ফজলুল করিম", price: 700, bookId: 2313, stock: 25 },
+            { filename: "download14", name: "চলেন খিচুড়ি খাই (হার্ডকভার)", author: "মাসফিক এনাম তূর্য", price: 800, bookId: 2314, stock: 15 },
+            
+            { filename: "download16", name: "Islamic Calligraphy", author: "Vizier Ibn Muqla", price: 350, bookId: 2316, stock: 20 },
+            { filename: "download17", name: "আর রাহিকুল মাখতুম", author: "মাওলানা শফিকুল ইসলাম", price: 400, bookId: 2317, stock: 30 },
+            { filename: "download18", name: "Islami Motivation", author: "মাহমুদুল হক জালীস", price: 450, bookId: 2318, stock: 40 },
+            { filename: "download19", name: "আমি পদ্মজা", author: "ইলমা বেহরোজ", price: 350, bookId: 2319, stock: 20 },
+            { filename: "download20", name: "প্রোগ্রামিং কনটেস্ট সমস্যা ও সমাধান", author: "মাহবুবুল হাসান", price: 320, bookId: 2320, stock: 10 },
+            { filename: "download21", name: "পাইথন দিয়ে প্রোগ্রামিং শেখা", author: "তামিম শাহরিয়ার সুবিন", price: 500, bookId: 2321, stock: 50 },
+            { filename: "download22", name: "কোহিনূর", author: "লাবণ্য ইয়াসমিন", price: 600, bookId: 2322, stock: 60 },
+            { filename: "download23", name: "মেঘ বলেছে যাব যাব", author: "হুমায়ূন আহমেদ", price: 750, bookId: 2323, stock: 35 },
+            { filename: "download24", name: "কথায় কথায় English", author: "রোকসানা আক্তার রুপী", price: 380, bookId: 2324, stock: 45 },
+            { filename: "download25", name: "আশারীন", author: "আদেল পারভেজ", price: 900, bookId: 2325, stock: 20 },
+            { filename: "download26", name: "জাভা থ্রেড প্রোগ্রামিং", author: "আ ন ম বজলুর রহমান", price: 720, bookId: 2326, stock: 30 },
+            { filename: "download27", name: "Harry Potter and the Philosophers Stone", author: " J. K. Rowling", price: 650, bookId: 2327, stock: 60 },
+            { filename: "download28", name: "আলাদিন ", author: "আহনাফ তাহমিদ", price: 550, bookId: 2328, stock: 90 },
+            { filename: "download29", name: "Principles of Marketing", author: "Philip Kotler", price: 700, bookId: 2329, stock: 40 },
+            { filename: "download30", name: "Business Statistics", author: "Dr. S.C. Aggarwal and Dr. R.K. Rana", price: 500, bookId: 2330, stock: 80 }
+        ];
+
+        let cart = [];
+
+        function updateCart() {
+            const cartCount = cart.length;
+            const cartTotal = cart.reduce((total, item) => total + item.price, 0);
+
+            document.getElementById("cartCount").textContent = cartCount;
+            document.getElementById("cartTotal").textContent = cartTotal;
+        }
+
+        function addToCart(book) {
+            cart.push(book);
+            updateCart();
+            alert(`✅ Book added to cart: ${book.name}`);
+        }
+
+        function searchBook() {
+            const searchInput = document.getElementById("searchInput").value;
+            const filteredBooks = books.filter(book => book.bookId.toString().includes(searchInput));
+
+            if (filteredBooks.length > 0) {
+                const book = filteredBooks[0];
+                alert(`📖 Book Found:\nBook ID: ${book.bookId}\nName: ${book.name}\nAuthor: ${book.author}\nPrice: ৳${book.price}\nStock: ${book.stock}\n--------------------------\n➕ Add to Cart? (y/n):`);
+                const confirmAdd = prompt(`Add to Cart? (y/n)`);
+                if (confirmAdd === 'y') {
+                    addToCart(book);
+                }
+            } else {
+                alert("No book found with this ID.");
+            }
+        }
+
+        function renderBooks() {
+            const bookListDiv = document.getElementById("bookList");
+            bookListDiv.innerHTML = ''; // Clear existing books
+
+            books.forEach(book => {
+                const bookDiv = document.createElement('div');
+                bookDiv.classList.add('book');
+                bookDiv.innerHTML = `
+                    <img src="images/${book.filename}.jpg" alt="${book.name}">
+                    <h3>${book.name}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Price: ৳${book.price}</p>
+                    <p>Stock: ${book.stock}</p>
+                    <button onclick="addToCart(${JSON.stringify(book)})">Add to Cart</button>
+                `;
+                bookListDiv.appendChild(bookDiv);
+            });
+        }
+
+        window.onload = renderBooks;
+    </script>
+
+</body>
+
+</html>
