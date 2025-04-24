@@ -62,30 +62,6 @@
             margin: 4px 0;
         }
 
-        .book button {
-            margin-top: 8px;
-            padding: 8px 16px;
-            border: none;
-            background-color: #00cc66;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .book button:hover {
-            background-color: #00a655;
-        }
-
-        .book input {
-            margin-top: 8px;
-            padding: 5px;
-            width: 50px;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-        }
-
         #cart {
             position: fixed;
             top: 20px;
@@ -227,7 +203,6 @@
             { filename: "download12", name: "মিসির আলি অমনিবাস", author: "হুমায়ূন আহমেদ", price: 600, bookId: 2312, stock: 30 },
             { filename: "download13", name: "আমি মানুষ", author: "সরদার ফজলুল করিম", price: 700, bookId: 2313, stock: 25 },
             { filename: "download14", name: "চলেন খিচুড়ি খাই (হার্ডকভার)", author: "মাসফিক এনাম তূর্য", price: 800, bookId: 2314, stock: 15 },
-            
             { filename: "download16", name: "Islamic Calligraphy", author: "Vizier Ibn Muqla", price: 350, bookId: 2316, stock: 20 },
             { filename: "download17", name: "আর রাহিকুল মাখতুম", author: "মাওলানা শফিকুল ইসলাম", price: 400, bookId: 2317, stock: 30 },
             { filename: "download18", name: "Islami Motivation", author: "মাহমুদুল হক জালীস", price: 450, bookId: 2318, stock: 40 },
@@ -255,12 +230,6 @@
             document.getElementById("cartTotal").textContent = cartTotal;
         }
 
-        function addToCart(book) {
-            cart.push(book);
-            updateCart();
-            alert(`✅ Book added to cart: ${book.name}`);
-        }
-
         function searchBook() {
             const searchInput = document.getElementById("searchInput").value;
             const filteredBooks = books.filter(book => book.bookId.toString().includes(searchInput));
@@ -270,7 +239,9 @@
                 alert(`📖 Book Found:\nBook ID: ${book.bookId}\nName: ${book.name}\nAuthor: ${book.author}\nPrice: ৳${book.price}\nStock: ${book.stock}\n--------------------------\n➕ Add to Cart? (y/n):`);
                 const confirmAdd = prompt(`Add to Cart? (y/n)`);
                 if (confirmAdd === 'y') {
-                    addToCart(book);
+                    cart.push(book);
+                    updateCart();
+                    alert(`✅ Book added to cart: ${book.name}`);
                 }
             } else {
                 alert("No book found with this ID.");
@@ -290,7 +261,6 @@
                     <p>Author: ${book.author}</p>
                     <p>Price: ৳${book.price}</p>
                     <p>Stock: ${book.stock}</p>
-                    <button onclick="addToCart(${JSON.stringify(book)})">Add to Cart</button>
                 `;
                 bookListDiv.appendChild(bookDiv);
             });
